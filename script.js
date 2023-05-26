@@ -8,7 +8,7 @@ const save_fuel = () => {
     let cost = cost_in.value;
     let price = price_in.value;
 
-    let url = `http://otternonesenses.co.za/refuel-api/insert_fuel.php?cost=${cost}&price=${price}&liters=${amount};`
+    let url = `http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_fuel.php?cost=${cost}&price=${price}&liters=${amount};`
 
     fetch(url)
     .then(res => {

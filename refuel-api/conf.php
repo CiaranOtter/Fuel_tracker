@@ -6,7 +6,7 @@
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 
-	$servername = "localhost";
+	$servername = "www.otternonesenses.co.za";
 	$username = "root";
 	$password = "!dKZ#10@3kc*L8w6i#";
 	$db = "fuel_tracker";
