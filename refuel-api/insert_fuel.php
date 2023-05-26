@@ -27,7 +27,7 @@
 
 	if ($data) {
 
-		$query = "INSERT INTO reFuel (cost, price, liters) VALUES ($cost,$price, $liters);";
+		$query = "INSERT INTO reFuel (cost, price, liters) VALUES ($cost,$price, $liters)";
 
 		if ($res = $conn->query($query)) {
 			echo "1";

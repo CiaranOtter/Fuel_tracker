@@ -10,11 +10,10 @@ const save_fuel = () => {
 
     let url = `http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_fuel.php?cost=${cost}&price=${price}&liters=${amount};`
 
+    console.log(url);
+
     fetch(url)
-    .then(res => {
-        console.log(res)
-        return res.text()
-    })
+    .then(res => res.text())
     .then(data => {
         if (data == "1") {
             console.log(data, "save was successful");
