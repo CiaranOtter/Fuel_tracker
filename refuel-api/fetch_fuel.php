@@ -1,6 +1,7 @@
 <?php
 
 	include('conf.php');
+	include('func.php');
 
 
 	$query = "SELECT * from reFuel";
