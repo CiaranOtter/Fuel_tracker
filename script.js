@@ -8,10 +8,13 @@ const save_fuel = () => {
     let cost = cost_in.value;
     let price = price_in.value;
 
-    let url = `http://otternonesenses.co.za/refuel-api/insert-fuel.php?cost=${cost}$price=${price}&liters=${amount};`
+    let url = `http://otternonesenses.co.za/refuel-api/insert_fuel.php?cost=${cost}&price=${price}&liters=${amount};`
 
     fetch(url)
-    .then(res => res.text())
+    .then(res => {
+        console.log(res)
+        return res.text()
+    })
     .then(data => {
         if (data == "1") {
             console.log(data, "save was successful");
