@@ -28,6 +28,25 @@ add_fuel_button.addEventListener('click', () => {
     console.log(reFuel);
 });
 
+const get_cars = async (  ) => {
+    fetch('http://otternonesenses.co.za/Fuel_tracker/refuel-api/get_cars.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            load_cars(data.data);
+        }
+    })
+}
+
+const load_cars = (cars) => {
+    cars.forEach(car => {
+        let opt = document.createElement('option');
+        opt.value = car;
+        opt.innerHTML = car.name;
+        add_fuel_drop.appendChild(opt);
+    });
+}
+
 
 class Car {
     constructor() {
