@@ -15,6 +15,7 @@ const Fuel = (cost, price, liters, car) => {
 
 add_car.addEventListener('click', () => {
     const car = new Car();
+    car.save_car();
     let opt = document.createElement('option');
     opt.value = car;
     opt.innerHTML = car.name;
@@ -41,13 +42,16 @@ class Car {
     }
 
     async save_car() {
-        requestOptions = {
+
+        fetch('http://otternonesenses.co.za/Fuel_tracker/refuel-api/add_car.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({name: this.name})
-        }
-
-        fetch 
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        }) 
     }
 
 }
