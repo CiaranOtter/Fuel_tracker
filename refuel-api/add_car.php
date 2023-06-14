@@ -9,8 +9,14 @@ if (isset($post['name'])) {
 }
 
 
+
 $sql = "INSERT INTO car_profile (name) VALUES ('$car_name')";
 
+if ($car_name!= '') {
+    $output = array('success' => false);
+    echo json_encode($output);
+    exit;
+}
 if ($res = $conn->query($sql)) {
     $output = array('success' => true);
 } else {

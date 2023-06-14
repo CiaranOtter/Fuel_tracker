@@ -6,12 +6,23 @@ const price_input = document.getElementById('price');
 const cost_input = document.getElementById('cost');
 const liters_input = document.getElementById('liters');
 
+const car_name_in = document.getElementById('car_name_in');
+
+const create_car_blocks = (car) => {
+    let opt = document.createElement('option');
+    opt.value = car;
+    opt.innerHTML = car.name;
+    add_fuel_drop.appendChild(opt);
+
+    let block = document.createElement('div');
+    block.classList.add('car-block');
+    block.innerHTML = car.name;
+    document.body.appendChild(block);
+}
+
 const load_cars = (cars) => {
     cars.forEach(car => {
-        let opt = document.createElement('option');
-        opt.value = car;
-        opt.innerHTML = car.name;
-        add_fuel_drop.appendChild(opt);
+        create_car_blocks(car)
     });
 }
 
@@ -20,12 +31,14 @@ const get_cars = async (  ) => {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
+            console.log(data.data)
             load_cars(data.data);
         }
     })
 }
 
 get_cars();
+
 
 const Fuel = (cost, price, liters, car) => {
     this.cost = cost;
@@ -35,12 +48,9 @@ const Fuel = (cost, price, liters, car) => {
 }
 
 add_car.addEventListener('click', () => {
-    const car = new Car();
+    const car = new Car(car_name_in.value);
     car.save_car();
-    let opt = document.createElement('option');
-    opt.value = car;
-    opt.innerHTML = car.name;
-    add_fuel_drop.appendChild(opt);
+    create_car_blocks(car);
 
 });
 
@@ -55,8 +65,12 @@ add_fuel_button.addEventListener('click', () => {
 
 
 class Car {
-    constructor() {
+    constructor(name) {
         this.name = "new car";
+        if (name != undefined) {
+            this.name = name;
+        }
+
         this.fuel = [];
 
         return this;
