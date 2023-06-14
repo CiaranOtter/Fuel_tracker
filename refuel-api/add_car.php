@@ -2,19 +2,23 @@
 
 include('conf.php');
 
-if (isset($_GET['name'])) {
-    $car_name = $_GET['name'];
+$car_name = '';
 
-    $query = "INSERT INTO car_profile (name) VALUES ('$car_name')";
-
-    if ($res = $conn->query($query)) {
-        echo "1";
-    } else {
-        echo "0";
-    }
-} else {
-    echo "0";
+if (isset($post['name'])) {
+    $car_name = $post['name'];
 }
+
+
+$sql = "INSERT INTO car_profile (name) VALUES ('$car_name')";
+
+if ($res = $conn->query($sql)) {
+    $output = array('success' => true);
+} else {
+    $output = array('success' => false);
+}
+
+echo json_encode($output);
+
 
 
 ?>

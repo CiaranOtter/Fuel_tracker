@@ -18,4 +18,6 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+$post = json_decode(file_get_contents('php://input'), true);
+
 ?>
