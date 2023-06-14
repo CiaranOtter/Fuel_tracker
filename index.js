@@ -6,6 +6,8 @@ const price_input = document.getElementById('price');
 const cost_input = document.getElementById('cost');
 const liters_input = document.getElementById('liters');
 
+get_cars();
+
 const Fuel = (cost, price, liters, car) => {
     this.cost = cost;
     this.price = price; 
