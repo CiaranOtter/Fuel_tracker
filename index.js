@@ -30,7 +30,7 @@ const get_cars = async (  ) => {
     fetch('http://otternonesenses.co.za/Fuel_tracker/refuel-api/get_cars.php')
     .then(res => res.json())
     .then(data => {
-        if (data.success) {
+        if (data.success && data.data.length > 0) {
             console.log(data.data)
             load_cars(data.data);
         }

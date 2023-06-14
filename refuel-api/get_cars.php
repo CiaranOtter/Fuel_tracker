@@ -7,6 +7,7 @@ $output = array("success" => false);
 
 if ($res = $conn->query($sql)) {
     $output['success'] = true;
+    $output['data'] = array();
     while ($row = $res->fetch_assoc()) {
         $output['data'][] = $row;
     }
