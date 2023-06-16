@@ -21,12 +21,24 @@
     </div>
 
     <script>
+        document.body.onload = () => {
+            fetch_fuel();
+        }
+        
         const price_in = document.getElementById('price');
         const liters_in = document.getElementById('liters');
         const cost_in = document.getElementById('cost');
         const kms_in = document.getElementById('kms');
 
         const add_fuel_button = document.getElementById('add-fuel');
+
+        const fetch_fuel = async () => {
+            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
+
+            let res = await fetch(url);
+            let data = await res.json();
+            console.log(data.data);
+        }
 
         add_fuel_button.addEventListener('click', () => {
             let fuel = {
