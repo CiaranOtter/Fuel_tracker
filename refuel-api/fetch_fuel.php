@@ -4,7 +4,7 @@ include('conf.php');
 
 $sql = "SELECT * FROM reFuel";
 
-$output = array("success" => false, data => array());
+$output = array("success" => false, "data" => array());
 
 if ($res = $conn->query($sql)) {
     $output['success'] = true;
