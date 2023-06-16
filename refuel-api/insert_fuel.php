@@ -12,7 +12,7 @@
 
     $output = array('success' => false, 'data' => array());
 
-    if ($res = $conn->qeury($sql)) {
+    if ($res = $conn->query($sql)) {
         $output['success'] = true;
 
     }

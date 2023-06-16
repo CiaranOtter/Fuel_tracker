@@ -42,8 +42,8 @@
         });
 
 
-        const save_fuel = async = (fuel) => {
-            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/add_fuel.php";
+        const save_fuel = async (fuel) => {
+            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_fuel.php";
 
             let options = {
                 method: 'POST',
@@ -53,7 +53,10 @@
                 body: JSON.stringify(fuel)
             }
 
-            let res = await fethc(url, options);
+            let res = await fetch(url, options);
+            console.log(res);
+            let test = await res.text();
+            console.log(test);
             let data = await res.json();
             console.log(data);
         }
