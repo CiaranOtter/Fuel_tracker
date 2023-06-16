@@ -12,6 +12,7 @@
         <input type="number" placeholder="price of fuel" id="price"/><br/>
         <input type="number" placeholder="liters purchased" id="liters" /><br/>
         <input type="number" placeholder="cost of fuel" id="cost" /><br/>
+        <input type="number" placeholder="kms on car" id="kms" /><br/>
         <!-- <select id="add-fuel-drop">
 
         </select> -->
@@ -19,6 +20,43 @@
  
     </div>
 
-    <script src="fuel.js"></script>
+    <script>
+        const price_in = document.getElementById('price');
+        const liters_in = document.getElementById('liters');
+        const cost_in = document.getElementById('cost');
+        const kms_in = document.getElementById('kms');
+
+        const add_fuel_button = document.getElementById('add-fuel');
+
+        add_fuel_button.addEventListener('click', () => {
+            let fuel = {
+                date: new Date(),
+                price: +price_in.value,
+                liters: +liters_in.value,
+                cost: +cost_in.value,
+                km_traveled: +kms_in.value
+            }
+
+            console.log(fuel);
+            save_fuel(fuel);
+        });
+
+
+        const save_fuel = async = (fuel) => {
+            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/add_fuel.php";
+
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(fuel)
+            }
+
+            let res = await fethc(url, options);
+            let data = await res.json();
+            console.log(data);
+        }
+    </script>
 </body>
 </html>
