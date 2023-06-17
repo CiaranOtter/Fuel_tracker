@@ -20,7 +20,7 @@
 
     if (isset($post['id'])) {
         $id = $post['id'];
-        delete_fuel($id);
+        $output = delete_fuel($id);
     }
 
     echo json_encode($output);

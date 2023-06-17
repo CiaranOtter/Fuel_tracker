@@ -2,7 +2,7 @@
 
 include('conf.php');
 
-$sql = "SELECT * FROM reFuel";
+$sql = "SELECT * FROM reFuel ORDER BY date";
 
 $output = array("success" => false, "data" => array());
 
