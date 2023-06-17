@@ -6,6 +6,7 @@
 
     function delete_fuel($id) {
         $output = $GLOBALS['output'];
+        $conn = $GLOBALS['conn'];
 
         $sql = "DELETE FROM reFuel WHERE id = $id";
 

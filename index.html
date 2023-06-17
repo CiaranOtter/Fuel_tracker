@@ -59,6 +59,7 @@
                 <div class="label" ></div>
                 <div class="text-block" id="fuel_price_">R26.12</div>
                 <div class="text-block" id="fuel_kmTraveled" >30000km</div>
+                <button class="button_delete" id="fuel_delete_button">delete</button>
             </div>
         </div>
     </div>
@@ -78,11 +79,23 @@
 
         const fuel_block_prototype = document.getElementById('fuel_block_prototype');
 
-        const delete_fuel = (id) => {
+        const delete_fuel = async (id) => {
+            console.log(id);
             let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/remove_fuel.php";
             let option = {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id 
+                })
             }
+
+            let res = await fetch(url, option);
+            let data = await res.text();
+            console.log(data)
+            fetch_fuel();
         }
 
         const make_money = (float) =>{
@@ -98,6 +111,7 @@
             return fuel;
         }
         const fetch_fuel = async () => {
+            fuel_container.innerHTML = "";
             let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
 
             let res = await fetch(url);
@@ -122,6 +136,11 @@
                         console.log("found one");
                         t.innerHTML = e[`${el}`];
                     }
+
+
+                    if (t.id == "fuel_delete_button") {
+                        t.addEventListener('click', () => delete_fuel(e.id));
+                    }
                 } 
 
                 console.log(block);
@@ -141,7 +160,6 @@
 
             console.log(fuel);
             save_fuel(fuel).then(() => {
-                fuel_container.innerHTML = "";
                 fetch_fuel();
             })
         });
