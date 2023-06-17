@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fuel tracker</title>
     <link rel="stylesheet"href="styles.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .prototype {
+            display: none;
+        }
+
+        body {
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .text-block {
+            /* font-family: 'Roboto Slab', serif; */
+            text-align: center;
+            
+        }
+
+        .date {
+            font-size: 12p;
+            font-weight: 200;
+            text-align: left;
+            padding: 0px 10px;
+        }
+
+        .container {
+            box-shadow: 0px 5px 0px -2px black;
+            text-align: centers;
+        }
+    </style>
 </head>
 <body>
     <div class="add-fuel-container container" >
@@ -18,6 +48,19 @@
         </select> -->
         <button type="submit" id="add-fuel">Add fuel</button>
  
+        <div id="fuel_container">
+            <div id="fuel_block_prototype" class="container prototype" >
+                
+                <div class="text-block date" id="fuel_date_" >5 may 2023</div>
+                
+                <div class="text-block" id="fuel_cost_">R200</div>
+                <div class="label" ></div>
+                <div class="text-block" id="fuel_liters_">20l</div>
+                <div class="label" ></div>
+                <div class="text-block" id="fuel_price_">R26.12</div>
+                <div class="text-block" id="fuel_kmTraveled" >30000km</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -31,13 +74,60 @@
         const kms_in = document.getElementById('kms');
 
         const add_fuel_button = document.getElementById('add-fuel');
+        const fuel_container = document.getElementById('fuel_container');
 
+        const fuel_block_prototype = document.getElementById('fuel_block_prototype');
+
+        const delete_fuel = (id) => {
+            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/remove_fuel.php";
+            let option = {
+                method: 'POST'
+            }
+        }
+
+        const make_money = (float) =>{
+            return `R${parseFloat(float).toFixed(2)}`;
+        }
+        const format_fuel = (fuel) => {
+            fuel.date = (new Date(fuel.date)).toLocaleString('default',{weekday:"short", year:"numeric", month:"short", day:"numeric"}) 
+            console.log(fuel.date.toLocaleString('en-UK', { month: "long"}));
+            fuel.cost = make_money(fuel.cost)
+            fuel.price = make_money(fuel.price)
+            fuel.liters = `${parseFloat(fuel.liters).toFixed(1)}`
+
+            return fuel;
+        }
         const fetch_fuel = async () => {
             let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
 
             let res = await fetch(url);
             let data = await res.json();
             console.log(data.data);
+
+
+            data.data.forEach(e=> {
+                let block = fuel_block_prototype.cloneNode(true);
+                block.id = block.id.replace("prototype", e.id);
+                block.classList.remove('prototype');
+                console.log(block.children);
+
+                e = format_fuel(e)
+                for (let i =0; i < block.children.length; i++){
+                    let t = block.children[i];
+                    console.log(t)
+                    let el = t.id.replace("fuel", "").replaceAll("_", '');
+                    console.log(e[`${el}`])
+                    console.log(el);
+                    if (e[`${el}`] != undefined) {
+                        console.log("found one");
+                        t.innerHTML = e[`${el}`];
+                    }
+                } 
+
+                console.log(block);
+                fuel_container.appendChild(block);
+            });
+            
         }
 
         add_fuel_button.addEventListener('click', () => {
@@ -50,7 +140,10 @@
             }
 
             console.log(fuel);
-            save_fuel(fuel);
+            save_fuel(fuel).then(() => {
+                fuel_container.innerHTML = "";
+                fetch_fuel();
+            })
         });
 
 
