@@ -4,7 +4,8 @@ import { CreateAccount } from '$classes/Account.js'
 export async function load({}) {
     let id = 1;
 
-    let account = CreateAccount(id);
+    let account = await CreateAccount(id);
+    console.log(account)
     if (!account) {
         return {
             error: 'No account with the id ' + id + ' can be found'

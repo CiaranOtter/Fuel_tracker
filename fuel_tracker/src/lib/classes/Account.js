@@ -11,13 +11,13 @@ const account_prot = {
 
 
         let res = await fetch(url, opt);
-        let data = await res.text();
+        let data = await res.json();
 
         console.log(data)
 
         if (data.success) {
-            this.name = data.data.name;
-            this.id = data.data.id;
+            this.name = data.data[0].name;
+            this.id = data.data[0].id;
             this.cars = [];
             return this;
         }
@@ -26,26 +26,28 @@ const account_prot = {
         return false;
     },
     fetch_cars: async function() {
-        // let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
-        // let opt = {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         id: this.id
-        //     })
-        // }
+        let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_cars.php";
+        let opt = {
+            method: 'POST',
+            body: JSON.stringify({
+                id: this.id
+            })
+        }
 
-        // let res = await fetch(url, opt);
-        // let data = await res.json()
+        let res = await fetch(url, opt);
+        let data = await res.json();
 
-        // if (data.success) {
-        //     data.data.forEach(item => {
-        //         this.fetch_cars.push(CarFuel(item));
-        //     })
-        // }
+        console.log(data)
+
+        if (data.success) {
+            data.data.forEach(item => {
+                this.fetch_cars.push(CarFuel(item));
+            })
+        }
     }
 
 }
 
-export function CreateAccount(id) {
-    return Object.create(account_prot).init(id);    
+export async function CreateAccount(id) {
+    return await Object.create(account_prot).init(id);    
 }
