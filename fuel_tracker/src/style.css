@@ -11,5 +11,6 @@ body {
     font-family: 'Roboto', sans-serif;
     background: var(--black);
     color: var(--lightgray);
+    margin: 0;
 }
 

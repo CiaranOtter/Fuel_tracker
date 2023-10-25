@@ -9,3 +9,10 @@
      <FuelItem fuel={f} />   
     {/each}
 </div>
+
+<style>
+    .container {
+        height: 100vh;
+        overflow-y: scroll;
+    }
+</style>

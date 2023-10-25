@@ -1,21 +1,32 @@
 <script>
+    import { Menu } from 'lucide-svelte';
     export let account; 
-    console.log(account.cars)
+    console.log(account.cars);
+
+    let height;
 </script>
 
-<div class="container">
-    <table>
-        <tr><td>Name:</td><td>{account.name}</td></tr>
-        <tr><td>Number of cars:</td><td>{account.cars.length}</td></tr>
-    </table>
+<div class="container" bind:clientHeight={height}>
+    <div class="data">{account.name.toUpperCase()}</div><div class="icon-container"><Menu size={height-10}/></div>
 </div>
 
 <style>
     .container {
-        width: fit-content;
-        border: 1px solid var(--lightgray);
+        background: var(--white);
+        margin:0px;
+        padding: 0px;
+        color: var(--black);
+        font-weight: 300;
+        font-size: 25px;
+        display: flex;
+        justify-content: space-between
+    }
+
+    .data {
         padding: 10px;
-        border-radius: 10px;
-        margin: auto;
+    }
+
+    .icon-container {
+        /* border: 1px solid red; */
     }
 </style>
