@@ -3,7 +3,7 @@ import { Fuel } from '$classes/fuel.js'
 const car_Fuel_prot = {
     init: function(obj) {
         this.id = obj.id;
-        this.name = obj.id;
+        this.name = obj.name;
         this.fuel_items = [];
         return this;
     },

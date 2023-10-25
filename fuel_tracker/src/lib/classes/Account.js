@@ -1,3 +1,5 @@
+import { CarFuel } from "$classes/Cars_Fuel.js"
+
 const account_prot = {
     init: async function(id) {
         let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_account.php";
@@ -41,7 +43,7 @@ const account_prot = {
 
         if (data.success) {
             data.data.forEach(item => {
-                this.fetch_cars.push(CarFuel(item));
+                this.cars.push(CarFuel(item));
             })
         }
     }
