@@ -7,7 +7,7 @@ export async function load({}) {
     let account = CreateAccount(id);
     if (!account) {
         return {
-            error: 'No account with the id ' + id + ' can be found';
+            error: 'No account with the id ' + id + ' can be found'
         }
     }
 

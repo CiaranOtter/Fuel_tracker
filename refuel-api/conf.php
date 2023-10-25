@@ -19,5 +19,6 @@ if ($conn->connect_error) {
 }
 
 $post = json_decode(file_get_contents('php://input'), true);
+$output = array("success" => false, "data" => array());
 
 ?>

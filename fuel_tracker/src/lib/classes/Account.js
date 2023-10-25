@@ -11,7 +11,9 @@ const account_prot = {
 
 
         let res = await fetch(url, opt);
-        let data = res.json();
+        let data = await res.text();
+
+        console.log(data)
 
         if (data.success) {
             this.name = data.data.name;
@@ -45,5 +47,5 @@ const account_prot = {
 }
 
 export function CreateAccount(id) {
-    return Object.create(account_prot).init(id);
+    return Object.create(account_prot).init(id);    
 }

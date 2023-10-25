@@ -73,6 +73,7 @@
             flex: 2;
             margin: 10px;
             padding: 10px;
+            overflow-y: scroll;
         }
 
         .add-fuel-container {
@@ -120,6 +121,12 @@
         .inner-container {
             border: 1px solid blue;
         }
+
+        @media (max-width: 800px) {
+            body {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -158,123 +165,135 @@
         </div>
     
 
+    <script src="classes/fuel.js" ></script>
+    <script src="classes/Cars_Fuel.js" ></script>
     <script>
-        document.body.onload = () => {
-            fetch_fuel();
-        }
-        
-        const price_in = document.getElementById('price');
-        const liters_in = document.getElementById('liters');
-        const cost_in = document.getElementById('cost');
-        const kms_in = document.getElementById('kms');
 
-        const add_fuel_button = document.getElementById('add-fuel');
-        const fuel_container = document.getElementById('fuel_container');
+        const Fuel_list = CarFuel();
+        const Fuel_prot_item = document.getElementById('fuel_block_prototype');
+        const fuel_contaienr = document.getElementById('fuel_container')
 
-        const fuel_block_prototype = document.getElementById('fuel_block_prototype');
-
-        const delete_fuel = async (id) => {
-            console.log(id);
-            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/remove_fuel.php";
-            let option = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id 
-                })
-            }
-
-            let res = await fetch(url, option);
-            let data = await res.text();
-            console.log(data)
-            fetch_fuel();
-        }
-
-        const make_money = (float) =>{
-            return `R${parseFloat(float).toFixed(2)}`;
-        }
-        const format_fuel = (fuel) => {
-            fuel.date = (new Date(fuel.date)).toLocaleString('default',{weekday:"short", year:"numeric", month:"short", day:"numeric"}) 
-            console.log(fuel.date.toLocaleString('en-UK', { month: "long"}));
-            fuel.cost = make_money(fuel.cost)
-            fuel.price = make_money(fuel.price)
-            fuel.liters = `${parseFloat(fuel.liters).toFixed(1)}`
-
-            return fuel;
-        }
-        const fetch_fuel = async () => {
-            fuel_container.innerHTML = "";
-            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
-
-            let res = await fetch(url);
-            let data = await res.json();
-            console.log(data.data);
-
-
-            data.data.forEach(e=> {
-                let block = fuel_block_prototype.cloneNode(true);
-                block.id = block.id.replace("prototype", e.id);
-                block.classList.remove('prototype');
-                console.log(block.children);
-
-                e = format_fuel(e)
-                for (let i =0; i < block.children.length; i++){
-                    let t = block.children[i];
-                    console.log(t)
-                    let el = t.id.replace("fuel", "").replaceAll("_", '');
-                    console.log(e[`${el}`])
-                    console.log(el);
-                    if (e[`${el}`] != undefined) {
-                        console.log("found one");
-                        t.innerHTML = e[`${el}`];
-                    }
-
-
-                    if (t.id == "fuel_delete_button") {
-                        t.addEventListener('click', () => delete_fuel(e.id));
-                    }
-                } 
-
-                console.log(block);
-                fuel_container.appendChild(block);
-            });
-            
-        }
-
-        add_fuel_button.addEventListener('click', () => {
-            let fuel = {
-                date: new Date(),
-                price: +price_in.value,
-                liters: +liters_in.value,
-                cost: +cost_in.value,
-                kmTraveled: +kms_in.value
-            }
-
-            console.log(fuel);
-            save_fuel(fuel).then(() => {
-                fetch_fuel();
+        Fuel_list.fetch_fuel().then(() => {
+            Fuel_list.fuel_items.forEach((f) => {
+                fuel_contaienr.append(f.populate_block(Fuel_prot_item.cloneNode(true))); 
             })
-        });
+        })
+        // document.body.onload = () => {
+        //     fetch_fuel();
+        // }
+        
+        // const price_in = document.getElementById('price');
+        // const liters_in = document.getElementById('liters');
+        // const cost_in = document.getElementById('cost');
+        // const kms_in = document.getElementById('kms');
+
+        // const add_fuel_button = document.getElementById('add-fuel');
+        // const fuel_container = document.getElementById('fuel_container');
+
+        // const fuel_block_prototype = document.getElementById('fuel_block_prototype');
+
+        // const delete_fuel = async (id) => {
+        //     console.log(id);
+        //     let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/remove_fuel.php";
+        //     let option = {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             id: id 
+        //         })
+        //     }
+
+        //     let res = await fetch(url, option);
+        //     let data = await res.text();
+        //     console.log(data)
+        //     fetch_fuel();
+        // }
+
+        // const make_money = (float) =>{
+        //     return `R${parseFloat(float).toFixed(2)}`;
+        // }
+        // const format_fuel = (fuel) => {
+        //     fuel.date = (new Date(fuel.date)).toLocaleString('default',{weekday:"short", year:"numeric", month:"short", day:"numeric"}) 
+        //     console.log(fuel.date.toLocaleString('en-UK', { month: "long"}));
+        //     fuel.cost = make_money(fuel.cost)
+        //     fuel.price = make_money(fuel.price)
+        //     fuel.liters = `${parseFloat(fuel.liters).toFixed(1)}`
+
+        //     return fuel;
+        // }
+        // const fetch_fuel = async () => {
+        //     fuel_container.innerHTML = "";
+        //     let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
+
+        //     let res = await fetch(url);
+        //     let data = await res.json();
+        //     console.log(data.data);
 
 
-        const save_fuel = async (fuel) => {
-            let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_fuel.php";
+        //     data.data.forEach(e=> {
+        //         let block = fuel_block_prototype.cloneNode(true);
+        //         block.id = block.id.replace("prototype", e.id);
+        //         block.classList.remove('prototype');
+        //         console.log(block.children);
 
-            let options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(fuel)
-            }
+        //         e = format_fuel(e)
+        //         for (let i =0; i < block.children.length; i++){
+        //             let t = block.childr =>en[i];
+        //             console.log(t)
+        //             let el = t.id.replace("fuel", "").replaceAll("_", '');
+        //             console.log(e[`${el}`])
+        //             console.log(el);
+        //             if (e[`${el}`] != undefined) {
+        //                 console.log("found one");
+        //                 t.innerHTML = e[`${el}`];
+        //             }
 
-            let res = await fetch(url, options);
-            console.log(res);
-            let data = await res.json();
-            console.log(data);
-        }
+
+        //             if (t.id == "fuel_delete_button") {
+        //                 t.addEventListener('click', () => delete_fuel(e.id));
+        //             }
+        //         } 
+
+        //         console.log(block);
+        //         fuel_container.appendChild(block);
+        //     });
+            
+        // }
+
+        // add_fuel_button.addEventListener('click', () => {
+        //     let fuel = {
+        //         date: new Date(),
+        //         price: +price_in.value,
+        //         liters: +liters_in.value,
+        //         cost: +cost_in.value,
+        //         kmTraveled: +kms_in.value
+        //     }
+
+        //     console.log(fuel);
+        //     save_fuel(fuel).then(() => {
+        //         fetch_fuel();
+        //     })
+        // });
+
+
+        // const save_fuel = async (fuel) => {
+        //     let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_fuel.php";
+
+        //     let options = {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(fuel)
+        //     }
+
+        //     let res = await fetch(url, options);
+        //     console.log(res);
+        //     let data = await res.json();
+        //     console.log(data);
+        // }
     </script>
 </body>
 </html>
