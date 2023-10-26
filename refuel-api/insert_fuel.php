@@ -7,8 +7,9 @@
     $price = $post['price'];
     $liters = $post['liters'];
     $km_traveled = $post['kmTraveled'];
+    $car_id = $post['car_id'];
 
-    $sql = "INSERT INTO reFuel (cost, liters, price, kmTraveled) VALUES ($cost, $liters, $price, $km_traveled);";
+    $sql = "INSERT INTO reFuel (cost, liters, price, kmTraveled, car_id) VALUES ($cost, $liters, $price, $km_traveled, $car_id);";
 
     $output = array('success' => false, 'data' => array());
 
