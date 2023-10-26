@@ -3,7 +3,7 @@
 include('conf.php');
 
 if (!isset($post['id'])) {
-    die(json_encode($post['id']));
+    die(json_encode($output));
 }
 
 $sql = "SELECT * FROM reFuel WHERE car_id = ".$post['id']." ORDER BY date DESC";
