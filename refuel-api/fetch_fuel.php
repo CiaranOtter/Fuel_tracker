@@ -6,7 +6,7 @@ if (!isset($post['id'])) {
     die(json_encode($post['id']));
 }
 
-$sql = "SELECT * FROM reFuel WHERE accoumt_id = ".$post['id']." ORDER BY date DESC";
+$sql = "SELECT * FROM reFuel WHERE car_id = ".$post['id']." ORDER BY date DESC";
 
 $output = array("success" => false, "data" => array());
 
