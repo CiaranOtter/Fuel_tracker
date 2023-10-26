@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { identity } from "svelte/internal";
     import FuelPanel from "./FuelPanel.svelte";
+    import { goto } from '$app/navigation';
 
     export let cars;
     let promise;
@@ -31,7 +32,9 @@
 
     <div class="data-container">
 
-        <div class="add-button">Add new fuel</div>
+        <div class="add-button" on:click={() => {
+            goto(`add/${active_car.id}`)
+        }}>Add new fuel</div>
         {#await promise}
             <p>loading...</p>
         {:then p}
