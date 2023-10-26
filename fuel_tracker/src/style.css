@@ -12,5 +12,6 @@ body {
     background: var(--black);
     color: var(--lightgray);
     margin: 0;
+    overflow: hidden;
 }
 

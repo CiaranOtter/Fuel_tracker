@@ -30,6 +30,8 @@
     </div>
 
     <div class="data-container">
+
+        
         {#await promise}
             <p>loading...</p>
         {:then p}
@@ -44,6 +46,8 @@
     .tab-container {
         display: flex;
         flex-direction: row;
+        margin: auto;
+        width: fit-content;
     }
 
     .tab {
@@ -68,7 +72,7 @@
     }
     .container {
         margin: auto;
-        border: 1px solid var(--red);
-        width: fit-content;
+        /* border: 1px solid var(--red); */
+        width: 100vw
     }
 </style>
