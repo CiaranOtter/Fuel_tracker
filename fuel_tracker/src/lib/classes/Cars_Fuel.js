@@ -13,9 +13,12 @@ const car_Fuel_prot = {
     fetch_fuel: async function() {
         let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/fetch_fuel.php";
         let res = await fetch(url, {
-            
+            method:"POST",
+            body: JSON.stringify({
+                id: this.id
+            })
         });
-        let data = await res.text();
+        let data = await res.json();
 
         console.log("Fuel items:", data);
 

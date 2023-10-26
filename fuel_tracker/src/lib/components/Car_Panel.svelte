@@ -31,7 +31,7 @@
 
     <div class="data-container">
 
-        
+        <div class="add-button">Add new fuel</div>
         {#await promise}
             <p>loading...</p>
         {:then p}
@@ -43,6 +43,16 @@
 
 
 <style>
+
+    .add-button {
+        background: var(--pink);
+        color: var(--black);
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+    }
     .tab-container {
         display: flex;
         flex-direction: row;
