@@ -15,6 +15,10 @@
         promise = active_car.fetch_fuel();
     })
 
+    const refresh = () => {
+        console.log("refreshing")
+        promise = active_car.fetch_fuel();
+    }
     const select = (item) => {
         active_car = CarFuel(item);
         promise = active_car.fetch_fuel();
@@ -38,7 +42,7 @@
         {#await promise}
             <p>loading...</p>
         {:then p}
-        <FuelPanel fuel={active_car.fuel_items} />
+        <FuelPanel fuel={active_car.fuel_items} refresh={refresh} />
         {/await}
     </div>
 </div>
@@ -50,7 +54,8 @@
     .add-button {
         background: var(--pink);
         color: var(--black);
-        width: 50%;
+        width: 60%;
+        max-width: 300px;
         margin: auto;
         text-align: center;
         padding: 10px;

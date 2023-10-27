@@ -1,5 +1,6 @@
 <script>
-    export let fuel
+    export let fuel;
+    export let refresh;
 </script>
 
 <div class="container">
@@ -9,7 +10,11 @@
         <tr><td class="title" >Amount spent:</td><td class="value">R{fuel.cost}</td><tr>
         <tr><td class="title" >Price of fuel: </td><td class="value">R{fuel.price}</td></tr>
     </table>  
-    <div class="flex-container"><div class="edit">Edit</div><div class="delete">Delete</div></div> 
+    <div class="flex-container"><div class="edit">Edit</div><div on:click={async () => {
+            await fuel.delete();
+            refresh();
+        }
+        } class="delete">Delete</div></div> 
 </div>
 
 <style>
@@ -18,6 +23,8 @@
         border: 1px solid var(--lightgray);
         border-radius: 10px;
         margin: 10px auto;
+        width: 90%;
+        max-width: 500px;
     }
 
     .title {

@@ -1,18 +1,19 @@
 <script>
     import FuelItem from "./FuelItem.svelte";
     export let fuel;
+    export let refresh;
 
 </script>
 
 <div class="container">
     {#each fuel as f}
-     <FuelItem fuel={f} />   
+     <FuelItem fuel={f} refresh={refresh}/>   
     {/each}
 </div>
 
 <style>
     .container {
-        height: 100vh;
+        height: 75vh;
         overflow-y: scroll;
     }
 </style>

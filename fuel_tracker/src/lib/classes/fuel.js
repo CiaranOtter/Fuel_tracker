@@ -54,6 +54,24 @@ const fuel_prot = {
         }
 
         return this.block;
+    },
+    delete: async function() {
+        let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/remove_fuel.php";
+        let opt ={
+            method: 'POST',
+            body: JSON.stringify({
+                id: this.id
+            })
+        }
+
+        console.log("request body: ", opt)
+
+        let res = await fetch(url, opt)
+        let data = await res.json();
+
+        console.log("result of delete: ", data)
+
+        return data.success;
     }
 }
 
