@@ -1,12 +1,11 @@
 import { redirect } from "@sveltejs/kit";
 
-export const action = {
+export const actions = {
     default: async ({request, url}) => {
         const form = await request.formData();
-        let name = form.get('name');
+        let name = form.get('name').toLowerCase();
         let password = form.get('password');
 
-        let url = "http://otternonesenses.co.za/Fuel_tracker/refuel-api/create_account.php";
         let opt = {
             method: "POST",
             body: JSON.stringify({
@@ -16,9 +15,9 @@ export const action = {
         }
 
         let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/create_account.php", opt)
-        let data = await res.json();
-
-        if (res.success) {
+        let data = await res.text();
+        console.log(data)
+        if (data.success) {
             throw redirect(303, url.origin + '/account/login')
         } else {
             return {

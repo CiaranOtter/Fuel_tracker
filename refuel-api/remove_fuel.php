@@ -21,6 +21,8 @@
     if (isset($post['id'])) {
         $id = $post['id'];
         $output = delete_fuel($id);
+    } else {
+        die(json_encode($output));
     }
 
     echo json_encode($output);

@@ -2,7 +2,7 @@
     export let form;
 </script>
 
-<form action="post">
+<form method="POST">
     <label for="name_input">Name:</label><br/>
     <input id="name_input" type='text' name="name" /><br/>
     <label for="pasword_input">Password:</label><br/>
