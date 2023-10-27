@@ -15,8 +15,8 @@ export const actions = {
         }
 
         let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/create_account.php", opt)
-        let data = await res.text();
-        console.log(data)
+        let data = await res.json();
+        
         if (data.success) {
             throw redirect(303, url.origin + '/account/login')
         } else {
