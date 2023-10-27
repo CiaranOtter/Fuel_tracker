@@ -8,7 +8,7 @@ if (!isset($post['name']) || !isset($post['pass'])) {
 
 $sql = "INSERT INTO accounts (name, password) VALUES ('" . $post['name'] . "', '" . $post['pass'] . "')";
 
-if ($res = $conn->uery($sql)) {
+if ($res = $conn->query($sql)) {
     $output['success'] = true;
 }
 
