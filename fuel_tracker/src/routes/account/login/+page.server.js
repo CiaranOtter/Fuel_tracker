@@ -15,11 +15,12 @@ export const actions = {
             })
         }
 
-        let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/create_account.php", opt)
-        let data = await res.json();
+        let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/login.php", opt)
+        let data = await res.text();
+        console.log(data);
 
         if (data.success) {
-            // cookies.set('account_details')
+            cookies.set('account_details', JSON.stringify({user: data.data}), {path: '/'})
             throw redirect(303, url.origin);
         }
     }

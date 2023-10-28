@@ -6,7 +6,7 @@ if (!isset($post['name']) || !isset($post['pass'])) {
     die(json_encode($output));
 }
 
-$sql = "SELECT * FROM accounts WHERE name = '". $post['name']."' AND password='".$pst['pass']."'";
+$sql = "SELECT * FROM accounts WHERE name = '". $post['name']."' AND password='".$post['pass']."'";
 
 if ($res = $conn->query($sql)) {
     if (mysqli_num_rows($res) == 1) {
