@@ -13,7 +13,7 @@
 
 <style>
     .container {
-        height: 75vh;
+        height: 80vh;
         overflow-y: scroll;
     }
 </style>

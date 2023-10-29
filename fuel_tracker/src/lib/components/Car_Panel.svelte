@@ -7,13 +7,12 @@
 
     export let cars;
     let promise;
-    export let profile_height = 0;
-    let top_menu_height = 0;
-
-    let panel_height = 
+    export let profile_height;
+    let top_menu_height;
+    let window_height;
 
     let active_car = CarFuel(cars[0])
-    
+    $: panel_height = window_height - profile_height - top_menu_height;
 
     onMount( async () => {
         promise = active_car.fetch_fuel();
@@ -31,6 +30,8 @@
     let bar_height = 0;
 </script>
 
+<svelte:window bind:innerHeight={window_height} />
+
 <div class="container" bind:clientHeight={top_menu_height }>
     <div class="tab-container">
         {#each cars as c}
@@ -43,7 +44,7 @@
         }} bind:clientHeight={bar_height}><PlusCircle size={bar_height - 25} /></div>
     </div>
 
-    <div class="data-container" style="height: calc(100% - {top_menu_height} - {bar_height};">
+    <div class="data-container">
 
         <div class="add-button" on:click={() => {
             goto(`add/${active_car.id}`)
@@ -51,7 +52,7 @@
         {#await promise}
             <p>loading...</p>
         {:then p}
-        <FuelPanel fuel={active_car.fuel_items} refresh={refresh} />
+        <FuelPanel fuel={active_car.fuel_items} refresh={refresh} height={panel_height}/>
         {/await}
     </div>
 </div>
