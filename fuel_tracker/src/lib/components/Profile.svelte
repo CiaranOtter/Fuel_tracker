@@ -4,7 +4,7 @@
     export let account; 
     console.log(account.cars);
 
-    let height = 20;
+    export let height = 20;
 
     let show_menu = false;
 </script>

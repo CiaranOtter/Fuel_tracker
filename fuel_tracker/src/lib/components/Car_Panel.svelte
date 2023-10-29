@@ -1,12 +1,16 @@
 <script>
     import { CarFuel } from "$classes/Cars_Fuel";
     import { onMount } from "svelte";
-    import { identity } from "svelte/internal";
+    import { PlusCircle } from 'lucide-svelte'
     import FuelPanel from "./FuelPanel.svelte";
     import { goto } from '$app/navigation';
 
     export let cars;
     let promise;
+    export let profile_height = 0;
+    let top_menu_height = 0;
+
+    let panel_height = 
 
     let active_car = CarFuel(cars[0])
     
@@ -23,18 +27,23 @@
         active_car = CarFuel(item);
         promise = active_car.fetch_fuel();
     }
+
+    let bar_height = 0;
 </script>
 
-<div class="container">
+<div class="container" bind:clientHeight={top_menu_height }>
     <div class="tab-container">
         {#each cars as c}
         <div class="tab {(c.id== active_car.id) ? 'active' : ''}"
             on:click={() => select(c)}
         >{c.name}</div>
         {/each}
+        <div class="tag add-icon" on:click={() => {
+            goto('cars/add')
+        }} bind:clientHeight={bar_height}><PlusCircle size={bar_height - 25} /></div>
     </div>
 
-    <div class="data-container">
+    <div class="data-container" style="height: calc(100% - {top_menu_height} - {bar_height};">
 
         <div class="add-button" on:click={() => {
             goto(`add/${active_car.id}`)
@@ -51,6 +60,12 @@
 
 <style>
 
+    .add-icon {
+        /* border: 1px solid red; */
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
     .add-button {
         background: var(--pink);
         color: var(--black);

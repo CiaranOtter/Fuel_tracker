@@ -5,8 +5,12 @@
     data.account = JSON.parse(data.account)
 
     console.log(data.account);
+
+    let height = 0;
+
+    $:console.log("Client heioght:", height)
 </script>
 
-<Profile account={data.account} />
+<Profile account={data.account} bind:height={height}/>
 
-<CarPanel cars={data.account.cars} />
+<CarPanel cars={data.account.cars} profile_height={height}/>
