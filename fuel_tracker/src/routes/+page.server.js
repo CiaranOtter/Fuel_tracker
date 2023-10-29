@@ -1,5 +1,6 @@
 import { CarFuel } from '$classes/Cars_Fuel.js'
 import { CreateAccount } from '$classes/Account.js'
+import { redirect } from '@sveltejs/kit';
 
 export async function load({}) {
     let id = 1;
@@ -15,5 +16,13 @@ export async function load({}) {
     console.log(account)
     return {
         account: JSON.stringify(account)
+    }
+}
+
+export const actions = {
+    logout: async ({cookies}) => {
+        console.log("testing logging out");
+        cookies.delete('user_details');
+        throw redirect(303, '/account/login');
     }
 }

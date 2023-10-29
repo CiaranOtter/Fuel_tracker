@@ -16,8 +16,10 @@ export async function handle({ event, resolve }) {
     }
 
     cookie = JSON.parse(cookie);
-    let name = cookie.name;
-    let password = cookie.password;
+    let name = cookie.user.name;
+    let password = cookie.user.password;
+
+    console.log("thing: ", name, password)
 
     let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/login.php", {
         method: 'POST',
@@ -31,6 +33,10 @@ export async function handle({ event, resolve }) {
     
     if (!data.success && event.url.pathname != '/account/login') {
         throw redirect(303, '/account/login');
+    }
+
+    event.locals.user = {
+        id: data.data.id
     }
 
     return await resolve(event);

@@ -4,6 +4,10 @@
 
     export let show = false;
 
+    const logout = () => {
+
+    }
+
 </script>
 
 {#if show}
@@ -12,7 +16,7 @@
     <div class="item">
         My cars
     </div>
-    <div class="item">Logout</div>
+    <form method="POST" action="?/logout"><input type="submit" value="Logout" class="item" /></form>
 </div> 
 {/if}
 

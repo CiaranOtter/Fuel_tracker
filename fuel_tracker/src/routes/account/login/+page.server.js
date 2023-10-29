@@ -16,7 +16,7 @@ export const actions = {
         }
 
         let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/login.php", opt)
-        let data = await res.text();
+        let data = await res.json();
         console.log(data);
 
         if (data.success) {
