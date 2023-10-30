@@ -1,11 +1,8 @@
-export async function load({ fetch, locals }) {
-    return {
-        user: locals.user
-    }
-}
+import { redirect } from "@sveltejs/kit";
+
 
 export const actions = {
-    default: async ({request, locals}) => {
+    default: async ({request, locals,  url}) => {
         const form = await request.formData();
         let name = form.get('name');
 
@@ -17,13 +14,11 @@ export const actions = {
             })
         })
 
-        let data = await res.text();
+        let data = await res.json();
         console.log(data)
 
         if (data.success) {
-            return {
-                success: data.success
-            }
+            throw redirect(303, url.origin);
         }
     }
 }
