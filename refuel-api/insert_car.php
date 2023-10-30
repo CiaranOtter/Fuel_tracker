@@ -2,11 +2,11 @@
 
 include('conf.php');
 
-if (!isset($post['name'])) {
-    die(json_encode($outpu));
+if (!isset($post['name']) || !isset($post['account_id'])) {
+    die(json_encode($output));
 }
 
-$sql = "INSERT INTO car_profiles (name) VALUES ('"+$post['name']+"');";
+$sql = "INSERT INTO car_profiles (name, account_id) VALUES ('".$post['name']."', ".$post['account_id'].");";
 
 if ($res = $conn->query($sql)) {
     $output['success'] = true;

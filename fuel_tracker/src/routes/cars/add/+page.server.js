@@ -12,11 +12,13 @@ export const actions = {
         let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_car.php", {
             method: "POST",
             body: JSON.stringify({
-                name: name
+                name: name,
+                account_id: locals.user.id
             })
         })
 
-        let data = await res.json();
+        let data = await res.text();
+        console.log(data)
 
         if (data.success) {
             return {
