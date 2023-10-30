@@ -6,7 +6,7 @@ if (!isset($post['name']) || !isset($post['account_id'])) {
     die(json_encode($output));
 }
 
-$sql = "INSERT INTO car_profiles (name, account_id) VALUES ('".$post['name']."', ".$post['account_id'].");";
+$sql = "INSERT INTO car_profile (name, account_id) VALUES ('".$post['name']."', ".$post['account_id'].");";
 
 if ($res = $conn->query($sql)) {
     $output['success'] = true;
