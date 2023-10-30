@@ -24,6 +24,13 @@
     .container {
         background: var(--white);
         color: var(--black);
+        position: absolute;
+        width: 100%;
+        z-index:200;
+    }
+
+    .close {
+        float: right;
     }
 </style>
  

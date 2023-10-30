@@ -9,7 +9,7 @@ export const actions = {
         const form = await request.formData();
         let name = form.get('name');
 
-        let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/login.php", {
+        let res = await fetch("http://otternonesenses.co.za/Fuel_tracker/refuel-api/insert_car.php", {
             method: "POST",
             body: JSON.stringify({
                 name: name
