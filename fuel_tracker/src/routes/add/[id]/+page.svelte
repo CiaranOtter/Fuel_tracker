@@ -54,33 +54,6 @@
         transform: translate(-50%, -50%);
     }
 
-    .header {
-        color: var(--black);
-        font-weight: 500;
-        font-size: 25px;
-        margin-bottom: 10px;
-    }
-
-    .data_input {
-        padding: 5px 10px;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-bottom: 10px;;
-    }
-
-    .submit_button {
-        background: var(--pink);
-        border: 1px soild var(--pink);
-        box-shadow: none;
-        color: var(--white);
-        margin: auto;
-        display: block;
-        padding: 10px 20px;
-        margin-top: 10px;;
-        border-radius: 10px;
-        font-weight: 700;
-        font-size: 20px;;
-    }
 
     label {
         margin-left: 5px;

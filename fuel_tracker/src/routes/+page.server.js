@@ -2,14 +2,13 @@ import { CarFuel } from '$classes/Cars_Fuel.js'
 import { CreateAccount } from '$classes/Account.js'
 import { redirect } from '@sveltejs/kit';
 
-export async function load({}) {
-    let id = 1;
-
-    let account = await CreateAccount(id);
+export async function load({locals}) {
+    console.log("locals is:", locals.user.id)
+    let account = await CreateAccount(locals.user.id);
     
     if (!account) {
         return {
-            error: 'No account with the id ' + id + ' can be found'
+            error: 'No account with the id ' + locals.user.id + ' can be found'
         }
     }
     await account.fetch_cars();

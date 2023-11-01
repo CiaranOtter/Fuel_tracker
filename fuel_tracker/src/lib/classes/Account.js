@@ -39,10 +39,11 @@ const account_prot = {
         let res = await fetch(url, opt);
         let data = await res.json();
 
-        console.log(data)
+        console.log("car data:", data)
 
         if (data.success) {
             data.data.forEach(item => {
+                console.log("car items:", item);
                 this.cars.push(CarFuel(item));
             })
         }

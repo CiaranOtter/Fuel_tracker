@@ -1,9 +1,10 @@
 <script>
     import { CarFuel } from "$classes/Cars_Fuel";
     import { onMount } from "svelte";
-    import { PlusCircle } from 'lucide-svelte'
     import FuelPanel from "./FuelPanel.svelte";
+    import { PlusCircle } from 'lucide-svelte';
     import { goto } from '$app/navigation';
+    import { init_binding_group } from "svelte/internal";
 
     export let cars;
     let promise;
@@ -11,7 +12,10 @@
     let top_menu_height;
     let window_height;
 
-    let active_car = CarFuel(cars[0])
+    let active_car;
+    if (cars.length > 0) {
+        active_car = CarFuel(cars[0])
+    }   
     $: panel_height = window_height - profile_height - top_menu_height;
 
     onMount( async () => {
@@ -45,7 +49,9 @@
     </div>
 
     <div class="data-container">
-
+        {#if cars.length <= 0}
+            <div class="info">No cars yet</div>
+        {:else}
         <div class="add-button" on:click={() => {
             goto(`add/${active_car.id}`)
         }}>Add new fuel</div>
@@ -54,8 +60,11 @@
         {:then p}
         <FuelPanel fuel={active_car.fuel_items} refresh={refresh} height={panel_height}/>
         {/await}
+        {/if}
     </div>
 </div>
+
+
 
 
 
@@ -82,6 +91,7 @@
         flex-direction: row;
         margin: auto;
         width: fit-content;
+        height: 70px;
     }
 
     .tab {
