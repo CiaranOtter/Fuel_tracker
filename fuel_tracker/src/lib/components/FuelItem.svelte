@@ -1,4 +1,6 @@
 <script>
+    import { goto } from "$app/navigation";
+
     export let fuel;
     export let refresh;
 </script>
@@ -9,8 +11,9 @@
         <tr><td class="title" >Liters purchased:</td><td class="value">{fuel.liters} L</td></tr>
         <tr><td class="title" >Amount spent:</td><td class="value">R{fuel.cost}</td><tr>
         <tr><td class="title" >Price of fuel: </td><td class="value">R{fuel.price}</td></tr>
+        <tr><td class='title' >Kilometers on car:</td><td class="value">{fuel.kmTraveled}km</td></tr>
     </table>  
-    <div class="flex-container"><div class="edit">Edit</div><div on:click={async () => {
+    <div class="flex-container"><div class="edit" on:click={() =>{goto('/edit/'+fuel.id)}}>Edit</div><div on:click={async () => {
             await fuel.delete();
             refresh();
         }
