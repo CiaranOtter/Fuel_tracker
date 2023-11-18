@@ -28,6 +28,7 @@
 </script>
 
 <form method="POST">
+    <input type="hidden" value={data.user.id} name='id'/>
     <input type="date" name="date" id="inp_date" value="{format_date(date)}"/><br/>
     <input id="inp_price" name="price" value={data.fuel.price} step={0.01} /><br/>
     <input id="inp_cost" name="cost" value={data.fuel.cost} step={0.01} /><br/>

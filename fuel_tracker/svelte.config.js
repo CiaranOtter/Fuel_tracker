@@ -6,7 +6,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$classes: './src/lib/classes',
-			$components: './src/lib/components'
+			$components: './src/lib/components',
+			$helpers: './src/lib/helpers'
 		}
 	}
 };

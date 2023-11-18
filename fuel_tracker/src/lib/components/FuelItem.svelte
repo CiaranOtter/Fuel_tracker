@@ -1,26 +1,29 @@
 <script>
     import { goto } from "$app/navigation";
+    import { MoreVertical } from "lucide-svelte";
+    import ItemMenu from '$components/item_menu.svelte'
 
     export let fuel;
     export let refresh;
+    let show = false;
 </script>
 
 <div class="container">
+    <ItemMenu bind:show/>
+    <div class="menu" on:click={() => show = true}><MoreVertical /></div>
     <table>
         <tr><td class="title" >{(new Date(fuel.date)).toLocaleDateString('en-UK', {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'})}</td></tr>
         <tr><td class="title" >Liters purchased:</td><td class="value">{fuel.liters} L</td></tr>
         <tr><td class="title" >Amount spent:</td><td class="value">R{fuel.cost}</td><tr>
         <tr><td class="title" >Price of fuel: </td><td class="value">R{fuel.price}</td></tr>
         <tr><td class='title' >Kilometers on car:</td><td class="value">{fuel.kmTraveled}km</td></tr>
-    </table>  
-    <div class="flex-container"><div class="edit" on:click={() =>{goto('/edit/'+fuel.id)}}>Edit</div><div on:click={async () => {
-            await fuel.delete();
-            refresh();
-        }
-        } class="delete">Delete</div></div> 
+    </table>   
 </div>
 
 <style>
+    .menu {
+        float: right;
+    }
     .container {
         padding: 10px;
         border: 1px solid var(--lightgray);
@@ -28,6 +31,7 @@
         margin: 10px auto;
         width: 90%;
         max-width: 500px;
+        position: relative;
     }
 
     .title {
